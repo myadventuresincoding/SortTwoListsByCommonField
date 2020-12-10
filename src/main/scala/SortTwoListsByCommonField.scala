@@ -22,11 +22,14 @@ object SortTwoListsByCommonField {
       Purchase("Maxima", "Frank Smith", 35000, new Date(date.getTime - 9000000))
     )
 
-    // Combine the TestDrives and Purchases lists and sort descending by date
-    val activities = (testDrives ::: purchases).asInstanceOf[List[ {def date: Date}]].sortBy(_.date).reverse
+    // Combine the TestDrives and Purchases lists
+    val activities = (testDrives ::: purchases)
+
+    // Sort the activities by the common field date
+    val activitiesSorted = activities.asInstanceOf[List[ {def date: Date}]].sortBy(_.date).reverse
 
     // Now if we want to show fields other than "date", we can use pattern matching to cast each activity
-    for (activity <- activities) {
+    for (activity <- activitiesSorted) {
       activity match {
         case t: TestDrive =>
           println("%s\t|\t%s\t|\t%s\t|\t%s"
